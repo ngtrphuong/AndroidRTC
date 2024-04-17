@@ -263,7 +263,7 @@ public class VideoChatActivity extends ListActivity {
 
     public void sendMessage(View view) {
         String message = mChatEditText.getText().toString();
-        if (message.equals("")) return; // Return if empty
+        if ("".equals(message)) return; // Return if empty
         ChatMessage chatMsg = new ChatMessage(this.username, message, System.currentTimeMillis());
         mChatAdapter.addMessage(chatMsg);
         JSONObject messageJSON = new JSONObject();
