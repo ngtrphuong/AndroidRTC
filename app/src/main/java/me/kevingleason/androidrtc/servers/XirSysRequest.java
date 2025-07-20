@@ -2,6 +2,7 @@ package me.kevingleason.androidrtc.servers;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import io.github.pixee.security.BoundedLineReader;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
@@ -50,7 +51,7 @@ public class XirSysRequest extends AsyncTask<Void,Void,List<PeerConnection.IceSe
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
             StringBuilder builder = new StringBuilder();
-            for (String line=null; (line = reader.readLine()) != null;) {
+            for (String line=null; (line = BoundedLineReader.readLine(reader, 5_000_000)) != null;) {
                 builder.append(line).append("\n");
             }
             JSONTokener tokener = new JSONTokener(builder.toString());
